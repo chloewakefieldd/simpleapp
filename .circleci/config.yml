@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   aws-ecr: circleci/aws-ecr@6.8.2 # Use the AWS ECR orb in your config
+  aws-ecs: circleci/aws-ecs@1.1.0 # Use the AWS ECS orb in your config
 
 workflows:
   build_and_push_image: 
@@ -11,3 +12,9 @@ workflows:
           profile-name: chloewakefieldd
           repo: simpleapp
           tag: latest # default - latest
+      - aws-ecs/deploy-service-update:
+          requires:
+            - aws-ecr/build-and-push-image # only run the deployment job once the build and push image job has completed
+          family: '${MY_APP_PREFIX}-service'
+          cluster-name: '${MY_APP_PREFIX}-cluster'
+          container-image-name-updates: 'container=${MY_APP_PREFIX}-service,tag=${CIRCLE_SHA1}'
