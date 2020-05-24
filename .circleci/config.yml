@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  aws-ecr: circleci/aws-ecr@x.y.z # Use the AWS ECR orb in your config
+  aws-ecr: circleci/aws-ecr@6.8.2 # Use the AWS ECR orb in your config
 
 workflows:
   build_and_push_image: 
