@@ -8,7 +8,7 @@ workflows:
     jobs:
       - aws-ecr/build-and-push-image: # Use the pre-defined `build-and-push-image` job
           dockerfile: Dockerfile
-          path: /Dockerfile
+          path: /
           profile-name: chloewakefieldd
           repo: 914890495881.dkr.ecr.eu-west-1.amazonaws.com/simpleapp
           tag: latest # default - latest
