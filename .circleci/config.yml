@@ -1,16 +1,14 @@
 version: 2.1
+
 orbs:
-  node: circleci/node@1.1.6
-jobs:
-  buildplease:
-    executor:
-      name: node/default
-    steps:
-      - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
+  aws-ecr: circleci/aws-ecr@x.y.z # Use the AWS ECR orb in your config
+
 workflows:
-    buildplease:
-      jobs:
-        - buildplease
+  build_and_push_image: 
+    jobs:
+      - aws-ecr/build-and-push-image: # Use the pre-defined `build-and-push-image` job
+          dockerfile: <my-Docker-file>
+          path: <path-to-my-Docker-file>
+          profile-name: <my-profile-name>
+          repo: <my-ECR-repo>
+          tag: <my-ECR-repo-tag> # default - latest
