@@ -17,4 +17,4 @@ workflows:
             - aws-ecr/build-and-push-image # only run the deployment job once the build and push image job has completed
           family: 'first-run-task-definition'
           cluster-name: 'simpleapp-cluster'
-          container-image-name-updates: 'container=simpleapp-service,tag=${CIRCLE_SHA1}'
+          container-image-name-updates: 'container=simpleapp,tag=${CIRCLE_SHA1}'
