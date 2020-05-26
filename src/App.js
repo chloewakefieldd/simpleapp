@@ -13,16 +13,17 @@ function App() {
 
 
 
-  const [drawColour, setState] = useState(['']);
+  const [drawColour, setColour] = useState(['']);
 
   function printMouseCoords(e) {
-    console.log(
-      {
-        colour: drawColour,
-        x: e.clientX,
-        y: e.clientY,
-        mousedown: mousedown
-      });
+    const drawData = {
+      colour: drawColour[0],
+      x: e.clientX,
+      y: e.clientY,
+      mousedown: mousedown
+    };
+    console.log(drawData);
+    socket.emit('drawData', drawData);
   }
 
   document.onclick = (e) => {
@@ -56,10 +57,18 @@ function App() {
     console.log('client, connect');
     socket.on('chloe', (colour) => {
       console.log('chloe');
-      document.getElementsByTagName('body')[0].style.backgroundColor = colour;
+      //document.getElementsByTagName('body')[0].style.backgroundColor = colour;
       console.log(colour);
       drawColour[0]=colour;
     });
+
+
+    socket.on('drawOut', (drawData) => {
+      console.log('Client received drawData: ', drawData);
+    });
+
+
+
     // socket.on('wakefield', (colour) => {
     //   console.log('wakefield');
     //   document.getElementsByTagName('body')[0].style.backgroundColor = colour;
@@ -67,7 +76,18 @@ function App() {
     // });
   });
 
-
+  var flip = false;
+  setInterval(() => {
+    if (flip) {
+      flip = false;
+      drawColour[0]='#0000ff';
+    } else {
+      flip = true;
+      drawColour[0]='#00ff00';
+    }
+    console.log('tick');
+  }, 2000);
+  
 
   return (
     <>

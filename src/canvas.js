@@ -7,18 +7,11 @@ class Canvas extends Component {
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
     this.endPaintEvent = this.endPaintEvent.bind(this);
-    this.userStrokeStyle = this.props.colour;
-    console.log('start');
-    console.log(this.props);
-    console.log('end');
-
+    this.penColour = this.props.colour;
   }
-
-
 
   isPainting = false;
   line = [];
-
 
   onMouseDown({ nativeEvent }) {
     const { offsetX, offsetY } = nativeEvent;
@@ -35,7 +28,7 @@ class Canvas extends Component {
         stop: { ...offSetData },
       };
       this.line = this.line.concat(positionData);
-      this.paint(this.prevPos, offSetData, this.userStrokeStyle);
+      this.paint(this.prevPos, offSetData, this.penColour);
     }
   }
   endPaintEvent() {
@@ -71,10 +64,8 @@ class Canvas extends Component {
   render() {
     return (
       <canvas
-        style={{background: 'black'}}
         ref={(ref) => (this.canvas = ref)}
         onMouseDown={this.onMouseDown}
-        onMouseLeave={this.endPaintEvent}
         onMouseUp={this.endPaintEvent}
         onMouseMove={this.onMouseMove}
       />
