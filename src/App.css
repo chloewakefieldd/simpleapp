@@ -2,3 +2,42 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
+#colourSwatches {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  width: 600px;
+  margin: 0 auto;
+  display: flex;
+  cursor: pointer;
+}
+
+#blackSwatch, #redSwatch, #greenSwatch, #blueSwatch {
+  flex-grow: 4;
+  box-shadow: 0px 0px 0px 1px black;
+}
+
+#blackSwatch:hover, #redSwatch:hover, #greenSwatch:hover, #blueSwatch:hover {
+  opacity: 0.5;
+}
+
+
+
+#blackSwatch {
+  background-color: rgb(0,0,0);
+}
+
+#redSwatch {
+  background-color: rgb(255,0,0);
+}
+
+#greenSwatch {
+  background-color: rgb(0,255,0);
+}
+
+#blueSwatch {
+  background-color: rgb(0,0,255);
+}

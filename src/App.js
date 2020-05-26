@@ -76,21 +76,40 @@ function App() {
     // });
   });
 
-  var flip = false;
-  setInterval(() => {
-    if (flip) {
-      flip = false;
-      drawColour[0]='#0000ff';
-    } else {
-      flip = true;
-      drawColour[0]='#00ff00';
-    }
-    console.log('tick');
-  }, 2000);
+  // var flip = false;
+  // setInterval(() => {
+  //   if (flip) {
+  //     flip = false;
+  //     drawColour[0]='#0000ff';
+  //   } else {
+  //     flip = true;
+  //     drawColour[0]='#00ff00';
+  //   }
+  //   console.log('tick');
+  // }, 2000);
+
+  function changeColourBlack() {
+    drawColour[0]='#000000';
+  }
+  function changeColourRed() {
+    drawColour[0]='#ff0000';
+  }
+  function changeColourGreen() {
+    drawColour[0]='#00ff00';
+  }
+  function changeColourBlue() {
+    drawColour[0]='#0000ff';
+  }
   
 
   return (
     <>
+      <div id="colourSwatches">
+        <div id="blackSwatch" onClick={changeColourBlack}></div>
+        <div id="redSwatch" onClick={changeColourRed}></div>
+        <div id="greenSwatch" onClick={changeColourGreen}></div>
+        <div id="blueSwatch" onClick={changeColourBlue}></div>
+      </div>
       <Canvas colour={drawColour}/>
     </>
   );
