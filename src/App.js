@@ -9,17 +9,16 @@ const socket = openSocket('http://localhost:8000');
 const NUM_POLL_SKIPS = 9;
 
 
-
 function App() {
 
 
 
-  const [colour, setColour] = useState('000000');
+  const [drawColour, setState] = useState(['']);
 
   function printMouseCoords(e) {
     console.log(
       {
-        colour: colour,
+        colour: drawColour,
         x: e.clientX,
         y: e.clientY,
         mousedown: mousedown
@@ -59,20 +58,20 @@ function App() {
       console.log('chloe');
       document.getElementsByTagName('body')[0].style.backgroundColor = colour;
       console.log(colour);
-      setColour(colour);
+      drawColour[0]=colour;
     });
-    socket.on('wakefield', (colour) => {
-      console.log('wakefield');
-      document.getElementsByTagName('body')[0].style.backgroundColor = colour;
-      setColour(colour);
-    });
+    // socket.on('wakefield', (colour) => {
+    //   console.log('wakefield');
+    //   document.getElementsByTagName('body')[0].style.backgroundColor = colour;
+    //   setState(colour);
+    // });
   });
 
 
 
   return (
     <>
-      <Canvas />
+      <Canvas colour={drawColour}/>
     </>
   );
 }

@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 
 class Canvas extends Component {
+
   constructor(props) {
     super(props);
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
     this.endPaintEvent = this.endPaintEvent.bind(this);
+    this.userStrokeStyle = this.props.colour;
+    console.log('start');
+    console.log(this.props);
+    console.log('end');
+
   }
 
+
+
   isPainting = false;
-  userStrokeStyle = '#EE92C2';
-  guestStrokeStyle = '#F0C987';
   line = [];
 
 
@@ -49,9 +55,13 @@ class Canvas extends Component {
     this.prevPos = { offsetX, offsetY };
   }
 
-  componentDidMount() {
+  resizeCanvas() {
     this.canvas.width=window.innerWidth
     this.canvas.height=window.innerHeight
+  }
+
+  componentDidMount() {
+    this.resizeCanvas();
     this.ctx = this.canvas.getContext('2d');
     this.ctx.lineJoin = 'round';
     this.ctx.lineCap = 'round';
@@ -61,8 +71,8 @@ class Canvas extends Component {
   render() {
     return (
       <canvas
+        style={{background: 'black'}}
         ref={(ref) => (this.canvas = ref)}
-        style={{ background: 'black' }}
         onMouseDown={this.onMouseDown}
         onMouseLeave={this.endPaintEvent}
         onMouseUp={this.endPaintEvent}
