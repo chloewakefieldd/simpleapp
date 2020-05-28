@@ -40,7 +40,7 @@ export default function App() {
   const handleMouseDown = (e) => {
     console.log("HANDLE_MOUSE_DOWN");
     mouseIsDown = true;
-    printMouseCoords(e);
+    sendDrawData(e);
   }
 
 
@@ -48,7 +48,7 @@ export default function App() {
     if (mouseIsDown) {
       if (counter > 49) {
         console.log("HANDLE_MOUSE_MOVE");
-        printMouseCoords(e);
+        sendDrawData(e);
         counter = 0;
       }
       counter++;
@@ -58,7 +58,7 @@ export default function App() {
   const handleMouseUp = (e) => {
     console.log("HANDLE_MOUSE_UP");
     mouseIsDown = false;
-    printMouseCoords(e);
+    sendDrawData(e);
   }
 
   return (
