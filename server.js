@@ -9,7 +9,6 @@ io.on('connection', (socket) => {
   });
 
   socket.on('drawData', (drawData) => {
-    //console.log('received: ', drawData);
     io.emit('drawOut', drawData);
   });
 });

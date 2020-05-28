@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 class Canvas extends Component {
 
-  componentDidUpdate(nextProps) {
-    console.log('componentDidUpdate: ', nextProps);
+  componentWillUpdate(nextProps) {
     this.drawData = nextProps.drawData;
+    console.log('componentWillUpdate: ', nextProps.drawData);
   }
 
   paint(prevPos, currPos, strokeStyle) {
