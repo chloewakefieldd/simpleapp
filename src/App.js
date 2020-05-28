@@ -11,6 +11,8 @@ var colour = '#000000';
 setInterval(() => {socket.emit('heartbeat', socket.id)}, 2000)
 
 function App() {
+
+  console.log();
     
   const [drawData, setDrawData] = useState({});
   const [drawHistory, setDrawHistory] = useState([]);
