@@ -4,13 +4,10 @@ class Canvas extends Component {
 
   constructor(props) {
     super(props);
-    console.log("CONSTRUCTOR");
     this.activelyDrawingClients = {};
-    console.log('this.activelyDrawingClients', this.activelyDrawingClients);
   }
 
   componentDidMount() {
-    console.log('COMPONENT_DID_MOUNT');
     this.canvas.width=window.innerWidth
     this.canvas.height=window.innerHeight
     this.ctx = this.canvas.getContext('2d');
@@ -20,9 +17,7 @@ class Canvas extends Component {
   }
 
   componentDidUpdate() {
-    console.log('COMPONENT_DID_UPDATE');
     var myDrawHistory = this.props.drawHistory;
-    console.table(myDrawHistory);
     while (myDrawHistory.length > 0) {
       var drawDataPoint = myDrawHistory.shift();
       this.processDataPoint(drawDataPoint);
@@ -30,14 +25,11 @@ class Canvas extends Component {
   }
 
   processDataPoint(dataPoint) {
-    console.log("START - processDataPoint");
     var clientID = dataPoint.clientID;
 
     if (this.activelyDrawingClients[clientID]) {
       
-      console.log("client " + clientID + " exists");
       this.activelyDrawingClients[clientID].activeDrawLine.push({
-        colour: dataPoint.colour,
         x: dataPoint.x,
         y: dataPoint.y,
         mousedown: dataPoint.mousedown
@@ -47,34 +39,27 @@ class Canvas extends Component {
       var fromX = fromPoint.x;
       var fromY = fromPoint.y;
 
+      var toX, toY;
       if (this.activelyDrawingClients[clientID].activeDrawLine[0].mousedown) {
-        var toX = this.activelyDrawingClients[clientID].activeDrawLine[0].x;
+        toX = this.activelyDrawingClients[clientID].activeDrawLine[0].x;
         var toY = this.activelyDrawingClients[clientID].activeDrawLine[0].y;
       } else {
         var toPoint = this.activelyDrawingClients[clientID].activeDrawLine.shift();
-        var toX = toPoint.x;
-        var toY = toPoint.y;
+        toX = toPoint.x;
+        toY = toPoint.y;
         delete this.activelyDrawingClients[clientID];
       }
-
-      console.log('fromX:',fromX);
-      console.log('fromY:',fromY);
-      console.log('toX:',toX);
-      console.log('toY:',toY);
 
       this.doMeAPaint(
         fromX,
         fromY,
         toX,
-        toY,
-        fromPoint.colour
+        toY
       );
 
     } else {
-      console.log("client " + clientID + " does not exist")
       this.activelyDrawingClients[clientID] = {
         activeDrawLine: [{
-          colour: dataPoint.colour,
           x: dataPoint.x,
           y: dataPoint.y,
           mousedown: dataPoint.mousedown
@@ -82,7 +67,6 @@ class Canvas extends Component {
       }
     }
 
-    console.log("END - processDataPoint");
   }
 
 
@@ -100,7 +84,7 @@ class Canvas extends Component {
   //   }
   // }
   
-  doMeAPaint(fromX,fromY,toX,toY,colour) {
+  doMeAPaint(fromX,fromY,toX,toY) {
     this.paint(
       {
         offsetX: fromX,
@@ -110,7 +94,7 @@ class Canvas extends Component {
         offsetX: toX,
         offsetY: toY
       },
-      colour
+      '#000000'
     );
   }
 

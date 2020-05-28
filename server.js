@@ -12,8 +12,8 @@ io.on('connection', (socket) => {
 
   socket.on('drawData', (drawData) => {
     drawHistory.push(drawData);
-    console.log(drawHistory);
     io.emit('drawOut', drawData);
+    console.log(drawHistory.length);
   });
 
   socket.on('heartbeat', (clientId) => {
