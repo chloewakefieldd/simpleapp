@@ -4,23 +4,26 @@ class Canvas extends Component {
 
   componentWillUpdate(nextProps) {
     this.drawData = nextProps.drawData;
-    console.log('componentWillUpdate: ', nextProps.drawData);
-
+    console.log("HERE", !!this.drawHistory);
+    this.drawHistory = nextProps.drawHistory;
+    console.log('componentWillUpdate, drawData: ', this.drawData);
+    console.log('componentWillUpdate, drawHistory: ', this.drawHistory);
+    console.log("HERE", !!this.drawHistory);
+    this.doMeAPaint(this.drawHistory.shift());
+  }
+  
+  doMeAPaint(drawData) {
     this.paint(
       {
-        offsetX: nextProps.drawData.x,
-        offsetY: nextProps.drawData.y
+        offsetX: drawData.x,
+        offsetY: drawData.y
       },
       {
         offsetX: 250,
         offsetY: 250
       },
-      '#00ff00'
+      drawData.colour
     );
-
-    if(!nextProps.drawData.mousedown) {
-      console.log("CANVAS - mouseup");
-    }
   }
 
   paint(prevPos, currPos, strokeStyle) {
