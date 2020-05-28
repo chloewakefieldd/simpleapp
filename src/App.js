@@ -13,7 +13,7 @@ setInterval(() => {socket.emit('heartbeat', socket.id)}, 2000)
 export default function App() {
   console.log("APP RE-RENDER");
     
-  const [drawData, setDrawData] = useState({});
+  //const [drawData, setDrawData] = useState({});
   const [drawHistory, setDrawHistory] = useState([]);
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export default function App() {
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
       ></div>
-      <Canvas drawData={drawData} drawHistory={drawHistory}/>
+      <Canvas  drawHistory={drawHistory}/>{/*drawData={drawData}*/}
     </>
   );
 }
