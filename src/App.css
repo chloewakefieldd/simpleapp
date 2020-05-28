@@ -41,6 +41,7 @@ html, body {
 
 #clickCapture {
   background-color: orange;
+  opacity:0.3;
   position: absolute;
   z-index: 1;
   top: 60px;
