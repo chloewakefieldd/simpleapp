@@ -31,18 +31,56 @@ class Canvas extends Component {
 
   processDataPoint(dataPoint) {
     console.log("START - processDataPoint");
+    var clientID = dataPoint.clientID;
 
-    if (this.activelyDrawingClients[dataPoint.clientID]) {
-      console.log("client " + dataPoint.clientID + " exists");
-    } else {
-      console.log("client " + dataPoint.clientID + " does not exist")
-      this.activelyDrawingClients[dataPoint.clientID] = {
+    if (this.activelyDrawingClients[clientID]) {
+      
+      console.log("client " + clientID + " exists");
+      this.activelyDrawingClients[clientID].activeDrawLine.push({
+        colour: dataPoint.colour,
         x: dataPoint.x,
-        y: dataPoint.y
-      };
-    }
+        y: dataPoint.y,
+        mousedown: dataPoint.mousedown
+      });
 
-    this.doMeAPaint(dataPoint);
+      var fromPoint = this.activelyDrawingClients[clientID].activeDrawLine.shift();
+      var fromX = fromPoint.x;
+      var fromY = fromPoint.y;
+
+      if (this.activelyDrawingClients[clientID].activeDrawLine[0].mousedown) {
+        var toX = this.activelyDrawingClients[clientID].activeDrawLine[0].x;
+        var toY = this.activelyDrawingClients[clientID].activeDrawLine[0].y;
+      } else {
+        var toPoint = this.activelyDrawingClients[clientID].activeDrawLine.shift();
+        var toX = toPoint.x;
+        var toY = toPoint.y;
+        delete this.activelyDrawingClients[clientID];
+      }
+
+      console.log('fromX:',fromX);
+      console.log('fromY:',fromY);
+      console.log('toX:',toX);
+      console.log('toY:',toY);
+
+      this.doMeAPaint(
+        fromX,
+        fromY,
+        toX,
+        toY,
+        fromPoint.colour
+      );
+
+    } else {
+      console.log("client " + clientID + " does not exist")
+      this.activelyDrawingClients[clientID] = {
+        activeDrawLine: [{
+          colour: dataPoint.colour,
+          x: dataPoint.x,
+          y: dataPoint.y,
+          mousedown: dataPoint.mousedown
+        }]
+      }
+    }
 
     console.log("END - processDataPoint");
   }
@@ -62,17 +100,17 @@ class Canvas extends Component {
   //   }
   // }
   
-  doMeAPaint(drawData) {
+  doMeAPaint(fromX,fromY,toX,toY,colour) {
     this.paint(
       {
-        offsetX: drawData.x,
-        offsetY: drawData.y
+        offsetX: fromX,
+        offsetY: fromY
       },
       {
-        offsetX: 250,
-        offsetY: 250
+        offsetX: toX,
+        offsetY: toY
       },
-      drawData.colour
+      colour
     );
   }
 
