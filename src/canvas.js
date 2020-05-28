@@ -6,7 +6,7 @@ class Canvas extends Component {
     super(props);
     console.log("CONSTRUCTOR");
     this.activelyDrawingClients = {};
-    console.log(this.activelyDrawingClients);
+    console.log('this.activelyDrawingClients', this.activelyDrawingClients);
   }
 
   componentDidMount() {
@@ -25,8 +25,21 @@ class Canvas extends Component {
     console.table(myDrawHistory);
     while (myDrawHistory.length > 0) {
       var drawDataPoint = myDrawHistory.shift();
-      console.log(drawDataPoint);
+      this.processDataPoint(drawDataPoint);
     }
+  }
+
+  processDataPoint(dataPoint) {
+    console.log("START - processDataPoint");
+
+    if (this.activelyDrawingClients[dataPoint.clientID]) {
+      console.log("client " + dataPoint.clientID + " exists");
+    } else {
+      console.log("client " + dataPoint.clientID + " does not exist")
+      this.activelyDrawingClients[dataPoint.clientID] = "HELLO";
+    }
+
+    console.log("END - processDataPoint");
   }
 
 
