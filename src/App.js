@@ -18,15 +18,17 @@ export default function App() {
 
   useEffect(() => {
     socket.on('drawHistory', (receivedDrawHistory) => {
+      console.log("SOCKET ON - drawHistory");
       setDrawHistory(receivedDrawHistory);
     });
     socket.on('drawOut', (newDrawData) => {
-      console.log("HERE");
+      console.log("SOCKET ON - drawOut");
       setDrawHistory([newDrawData]);
     });
   });
 
-  function printMouseCoords(e) {
+  function sendDrawData(e) {
+    console.log("SEND_DRAW_DATA");
     socket.emit('drawData', {
       clientID: socket.id,
       x: e.clientX,
@@ -36,6 +38,7 @@ export default function App() {
   }
 
   const handleMouseDown = (e) => {
+    console.log("HANDLE_MOUSE_DOWN");
     mouseIsDown = true;
     printMouseCoords(e);
   }
@@ -44,6 +47,7 @@ export default function App() {
   const handleMouseMove = (e) => {
     if (mouseIsDown) {
       if (counter > 49) {
+        console.log("HANDLE_MOUSE_MOVE");
         printMouseCoords(e);
         counter = 0;
       }
@@ -52,6 +56,7 @@ export default function App() {
   }
   
   const handleMouseUp = (e) => {
+    console.log("HANDLE_MOUSE_UP");
     mouseIsDown = false;
     printMouseCoords(e);
   }
