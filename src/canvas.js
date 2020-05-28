@@ -4,20 +4,28 @@ class Canvas extends Component {
 
   constructor(props) {
     super(props);
-    console.log("NOPE I HAPPENED FIRST");
-    this.activelyDrawingClients = {};
-    console.log("this.activelyDrawingClients", this.activelyDrawingClients);
+    console.log("CONSTRUCTOR");
+  }
+
+  componentDidMount() {
+    console.log('COMPONENT_DID_MOUNT');
+    this.canvas.width=window.innerWidth
+    this.canvas.height=window.innerHeight
+    this.ctx = this.canvas.getContext('2d');
+    this.ctx.lineJoin = 'round';
+    this.ctx.lineCap = 'round';
+    this.ctx.lineWidth = 5;
   }
 
 
   componentWillUpdate(nextProps) {
-    console.log('I HAPPENED FIRST')
+    console.log('COMPONENT_WILL_UPDATE')
     this.drawData = nextProps.drawData;
     this.drawHistory = nextProps.drawHistory;
     console.log('componentWillUpdate, drawData: ', this.drawData);
     console.log('componentWillUpdate, drawHistory: ');
-    console.log();
-    this.drawDrawHistory()
+    console.table(this.drawHistory);
+    this.drawDrawHistory(this.drawHistory);
   }
 
   drawDrawHistory() {
@@ -30,17 +38,10 @@ class Canvas extends Component {
   }
 
   processDataToDraw(currentDataPoint) {
-    console.log("START");
     console.log('currentDataPoint', currentDataPoint);
     console.log('this.activelyDrawingClients', this.activelyDrawingClients);
     // IF CLIENT ISNT AN ACTIVE CLIENT ALREADY, ADD THE CLIENT
     console.log('currentDataPoint.clientID', currentDataPoint.clientID);
-    console.log('CLIENT EXISTS? ', this.activelyDrawingClients[currentDataPoint.clientID]);
-    if (!this.activelyDrawingClients[currentDataPoint.clientID]) {
-      this.activelyDrawingClients[currentDataPoint.clientID] = "HELLO";
-    }
-    console.log('this.activelyDrawingClients', this.activelyDrawingClients);
-    console.log("END");
   }
 
   
@@ -70,18 +71,9 @@ class Canvas extends Component {
     this.prevPos = { offsetX, offsetY };
   }
 
-  // resizeCanvas() {
-  //   this.canvas.width=window.innerWidth
-  //   this.canvas.height=window.innerHeight
-  // }
 
-  // componentDidMount() {
-  //   this.resizeCanvas();
-  //   this.ctx = this.canvas.getContext('2d');
-  //   this.ctx.lineJoin = 'round';
-  //   this.ctx.lineCap = 'round';
-  //   this.ctx.lineWidth = 5;
-  // }
+
+
 
   render() {
     return (

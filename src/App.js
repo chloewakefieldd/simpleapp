@@ -10,22 +10,21 @@ var colour = '#000000';
 
 setInterval(() => {socket.emit('heartbeat', socket.id)}, 2000)
 
-function App() {
-
-  console.log();
+export default function App() {
+  console.log("APP RE-RENDER");
     
   const [drawData, setDrawData] = useState({});
   const [drawHistory, setDrawHistory] = useState([]);
 
   useEffect(() => {
     socket.on('drawHistory', (receivedDrawHistory) => {
-      console.log('on drawHistory');
+      console.log('ON - drawHistory');
       setDrawHistory(receivedDrawHistory);
     });
-    socket.on('drawOut', (newDrawData) => {
-      console.log('on drawOut');
-      setDrawData(newDrawData);
-    });
+    // socket.on('drawOut', (newDrawData) => {
+    //   console.log('on drawOut');
+    //   //setDrawData(newDrawData);
+    // });
   });
 
   function printMouseCoords(e) {
@@ -42,6 +41,7 @@ function App() {
     mouseIsDown = true;
     printMouseCoords(e);
   }
+  
   const handleMouseUp = (e) => {
     mouseIsDown = false;
     printMouseCoords(e);
@@ -61,5 +61,3 @@ function App() {
     </>
   );
 }
-
-export default App;
