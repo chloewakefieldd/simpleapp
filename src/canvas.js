@@ -36,7 +36,10 @@ class Canvas extends Component {
       console.log("client " + dataPoint.clientID + " exists");
     } else {
       console.log("client " + dataPoint.clientID + " does not exist")
-      this.activelyDrawingClients[dataPoint.clientID] = "HELLO";
+      this.activelyDrawingClients[dataPoint.clientID] = {
+        x: dataPoint.x,
+        y: dataPoint.y
+      };
     }
 
     this.doMeAPaint(dataPoint);
