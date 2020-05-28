@@ -2,40 +2,11 @@ import React, { Component } from 'react';
 
 class Canvas extends Component {
 
-  constructor(props) {
-    super(props);
-    this.onMouseDown = this.onMouseDown.bind(this);
-    this.onMouseMove = this.onMouseMove.bind(this);
-    this.endPaintEvent = this.endPaintEvent.bind(this);
-    this.penColour = this.props.colour;
+  componentDidUpdate(nextProps) {
+    console.log('componentDidUpdate: ', nextProps);
+    this.drawData = nextProps.drawData;
   }
 
-  isPainting = false;
-  line = [];
-
-  onMouseDown({ nativeEvent }) {
-    const { offsetX, offsetY } = nativeEvent;
-    this.isPainting = true;
-    this.prevPos = { offsetX, offsetY };
-  }
-
-  onMouseMove({ nativeEvent }) {
-    if (this.isPainting) {
-      const { offsetX, offsetY } = nativeEvent;
-      const offSetData = { offsetX, offsetY };
-      const positionData = {
-        start: { ...this.prevPos },
-        stop: { ...offSetData },
-      };
-      this.line = this.line.concat(positionData);
-      this.paint(this.prevPos, offSetData, this.penColour);
-    }
-  }
-  endPaintEvent() {
-    if (this.isPainting) {
-      this.isPainting = false;
-    }
-  }
   paint(prevPos, currPos, strokeStyle) {
     const { offsetX, offsetY } = currPos;
     const { offsetX: x, offsetY: y } = prevPos;
