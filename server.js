@@ -13,7 +13,8 @@ io.on('connection', (socket) => {
   socket.on('drawData', (drawData) => {
     drawHistory.push(drawData);
     io.emit('drawOut', drawData);
-    console.log(drawHistory.length);
+    console.log("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    console.log(drawHistory);
   });
 
   socket.on('heartbeat', (clientId) => {

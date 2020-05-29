@@ -30,6 +30,7 @@ class Canvas extends Component {
     if (this.activelyDrawingClients[clientID]) {
       
       this.activelyDrawingClients[clientID].activeDrawLine.push({
+        colour: dataPoint.colour,
         x: dataPoint.x,
         y: dataPoint.y,
         mousedown: dataPoint.mousedown
@@ -42,7 +43,7 @@ class Canvas extends Component {
       var toX, toY;
       if (this.activelyDrawingClients[clientID].activeDrawLine[0].mousedown) {
         toX = this.activelyDrawingClients[clientID].activeDrawLine[0].x;
-        var toY = this.activelyDrawingClients[clientID].activeDrawLine[0].y;
+        toY = this.activelyDrawingClients[clientID].activeDrawLine[0].y;
       } else {
         var toPoint = this.activelyDrawingClients[clientID].activeDrawLine.shift();
         toX = toPoint.x;
@@ -54,12 +55,14 @@ class Canvas extends Component {
         fromX,
         fromY,
         toX,
-        toY
+        toY,
+        dataPoint.colour
       );
 
     } else {
       this.activelyDrawingClients[clientID] = {
         activeDrawLine: [{
+          colour: dataPoint.colour,
           x: dataPoint.x,
           y: dataPoint.y,
           mousedown: dataPoint.mousedown
@@ -68,23 +71,8 @@ class Canvas extends Component {
     }
 
   }
-
-
-  // componentWillUpdate(nextProps) {
-  //   this.drawData = nextProps.drawData;
-  //   this.drawHistory = nextProps.drawHistory;
-  //   this.drawDrawHistory(this.drawHistory);
-  // }
-
-  // drawDrawHistory() {
-  //   while(this.drawHistory.length > 0) {
-  //     const dataToDraw = this.drawHistory.shift();
-  //     this.processDataToDraw(dataToDraw);
-  //     this.doMeAPaint(dataToDraw);
-  //   }
-  // }
   
-  doMeAPaint(fromX,fromY,toX,toY) {
+  doMeAPaint(fromX, fromY, toX, toY, colour) {
     this.paint(
       {
         offsetX: fromX,
@@ -94,7 +82,7 @@ class Canvas extends Component {
         offsetX: toX,
         offsetY: toY
       },
-      '#000000'
+      colour
     );
   }
 
@@ -109,10 +97,6 @@ class Canvas extends Component {
     this.ctx.stroke();
     this.prevPos = { offsetX, offsetY };
   }
-
-
-
-
 
   render() {
     return (
