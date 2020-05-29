@@ -1,0 +1,51 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+#colourSwatches {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  width: 100vw;
+  margin: 0 auto;
+  display: flex;
+  cursor: pointer;
+}
+
+#blackSwatch, #redSwatch, #greenSwatch, #blueSwatch {
+  flex-grow: 4;
+}
+
+#blackSwatch:hover, #redSwatch:hover, #greenSwatch:hover, #blueSwatch:hover {
+  opacity: 0.5;
+}
+
+#blackSwatch {
+  background-color: rgb(0,0,0);
+}
+
+#redSwatch {
+  background-color: rgb(255,0,0);
+}
+
+#greenSwatch {
+  background-color: rgb(0,255,0);
+}
+
+#blueSwatch {
+  background-color: rgb(0,0,255);
+}
+
+#clickCapture {
+  background-color: orange;
+  opacity:0.3;
+  position: absolute;
+  z-index: 1;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
