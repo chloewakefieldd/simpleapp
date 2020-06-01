@@ -3,7 +3,7 @@ import './App.css';
 import Canvas from './canvas';
 import openSocket from 'socket.io-client';
 
-const socket = openSocket('http://localhost:8000');
+const socket = openSocket('http://34.243.147.39:8000/');
 var colour = '#000000';
 var mouseIsDown = false;
 setInterval(() => {socket.emit('heartbeat', socket.id)}, 2000)
@@ -46,6 +46,10 @@ export default function App() {
     mouseIsDown = false;
     sendDrawData(e);
   }
+  
+  const clear = () => {
+    socket.emit('clear');
+  }
 
   return (
     <>
@@ -54,6 +58,7 @@ export default function App() {
         <div id="redSwatch" onClick={() => {colour = '#ff0000'}}></div>
         <div id="greenSwatch" onClick={() => {colour = '#00ff00'}}></div>
         <div id="blueSwatch" onClick={() => {colour = '#0000ff'}}></div>
+        <div id="clearSwatch" onClick={clear}></div>
       </div>
       <div id="clickCapture"
         onMouseDown={handleMouseDown}
